@@ -1,5 +1,5 @@
 #include "vfspp/VFS.h"
-
+#include "dmutil.h"
 using namespace vfspp;
 using namespace std::string_view_literals;
 
@@ -16,10 +16,11 @@ void PrintFile(const std::string& msg, IFilePtr file)
 
 int main()
 {
+    DMSetWorkPath();
 	VirtualFileSystemPtr vfs(new VirtualFileSystem());
-    IFileSystemPtr rootFS(new NativeFileSystem("../test-data/files"));
+    IFileSystemPtr rootFS(new NativeFileSystem("../examples/test-data/files"));
     IFileSystemPtr memFS(new MemoryFileSystem());
-    IFileSystemPtr zipFS(new ZipFileSystem("../test-data/test.zip"));
+    IFileSystemPtr zipFS(new ZipFileSystem("../examples/test-data/test.zip"));
 
     rootFS->Initialize();
     memFS->Initialize();
@@ -72,8 +73,8 @@ int main()
 
     printf("DLC filesystem test:\n");
     
-    IFileSystemPtr dlc1FS(new NativeFileSystem("../test-data/dlc1"));
-    IFileSystemPtr dlc2FS(new NativeFileSystem("../test-data/dlc2"));
+    IFileSystemPtr dlc1FS(new NativeFileSystem("../examples/test-data/dlc1"));
+    IFileSystemPtr dlc2FS(new NativeFileSystem("../examples/test-data/dlc2"));
 
     dlc1FS->Initialize();
     dlc2FS->Initialize();
