@@ -2,7 +2,12 @@ cmake_minimum_required(VERSION 3.50)
 
 # Project name and version
 project(vfspp VERSION 1.0 LANGUAGES CXX)
-option(BUILD_EXAMPLES "Build examples" OFF)
+
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+include(cmake/ModuleImport.cmake)
+include(cmake/ModuleCompileOptions.cmake)
+ModuleSetCompileOptions()
+
 # Add the miniz-cpp library
 add_subdirectory(vendor/miniz-cpp EXCLUDE_FROM_ALL)
 
@@ -24,6 +29,6 @@ target_include_directories(vfspp
 
 target_compile_features(vfspp INTERFACE cxx_std_17)
 
-if (BUILD_EXAMPLES)
-add_subdirectory(examples)
+if (PROJECT_IS_TOP_LEVEL)
+    add_subdirectory(examples)
 endif()
